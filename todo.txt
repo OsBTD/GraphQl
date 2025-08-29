@@ -55,10 +55,9 @@ Commit, push to gh-pages, open incognito → login → logout → confirm.
 • Dark-mode toggle (already dark, but user switch).
 • Toast-style alerts instead of red bar.
 📋 FINAL CHECK-LIST
-[ ] Nested query present
-[ ] Argument query present
+[✅] Nested query present
+[✅] Argument query present
 [ ] Numbers verified against GraphiQL
-[ ] Third SVG graph added
+[✅] Third SVG graph added
 [ ] Live site loads & logout works
-[ ] README updated
 Once the four core bullets above are ticked, you satisfy every mandatory point in the subject and exceed the minimum with the extra graph.
