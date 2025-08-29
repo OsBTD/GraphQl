@@ -1,0 +1,64 @@
+Below is a concise “check-list + action plan” that covers every explicit requirement in the subject, cross-checked against what you already have.
+Just tick the boxes as you implement.
+✅ ALREADY DONE
+Login page with JWT (Basic auth, username OR email).
+Displays three chosen data items (✅ user identity, XP amount, audit ratio).
+Fourth section with two SVG graphs (✅ XP-progress line chart, skills-radar).
+Hosted (GitHub Pages / Netlify).
+Logout button clears token & reloads.
+🎯 MISSING / TO IMPROVE
+Table
+Copy
+Requirement	Evidence you still need	Action
+Nested query	Your current queries are flat or single-level	Add one nested query e.g. result { user { login } }
+Query with arguments	No where: clause yet	Add a query that uses arguments e.g. object(where:{id:{_eq:123}}){name}
+Graph accuracy	Manually verify in GraphiQL that XP, audit-ratio, skills numbers match	Run same queries in GraphiQL and compare
+Error message on bad login	Works, but make sure text is human	Keep as-is (“Invalid login details”)
+UI/UX quality	Dark theme is modern; ensure mobile still nice	Already responsive, ok
+Extra statistics (optional)	Subject says “will be noted”	Add third SVG graph (below)
+📌 ACTION PLAN (15-20 min each task)
+Add nested + argument queries (5 min)
+In queryProfileData() append:
+gql
+Copy
+# nested example
+lastResult: result(limit: 1, order_by: {createdAt: desc}) {
+  grade
+  user { login }
+}
+
+# argument example
+firstObject: object(where: {id: {_eq: 1}}) {
+  name
+  type
+}
+Display them in a tiny “Latest result” card under the stats grid.
+Add third SVG graph (15 min)
+Pick “PASS / FAIL ratio per project” – simple Donut (pie with hole).
+Query:
+gql
+Copy
+passFail: result {
+  grade
+  object { name }
+}
+Create passFailDonut(data) in profileComponents.js using SVG <circle> arcs.
+Verify numbers (5 min)
+Open GraphiQL → run identical queries → compare with rendered values.
+Update README (3 min)
+Add a line:
+“✅ Includes nested, argument, and normal GraphQL queries.”
+Push & test live (2 min)
+Commit, push to gh-pages, open incognito → login → logout → confirm.
+🧩 OPTIONAL NICE-TO-HAVE
+• Animate the donut on first load (CSS stroke-dasharray trick).
+• Dark-mode toggle (already dark, but user switch).
+• Toast-style alerts instead of red bar.
+📋 FINAL CHECK-LIST
+[ ] Nested query present
+[ ] Argument query present
+[ ] Numbers verified against GraphiQL
+[ ] Third SVG graph added
+[ ] Live site loads & logout works
+[ ] README updated
+Once the four core bullets above are ticked, you satisfy every mandatory point in the subject and exceed the minimum with the extra graph.

@@ -1,5 +1,18 @@
 import { queryProfileData } from "./authApi.js";
 
+
+export function extraInfoCard(data) {
+  const card = document.createElement("div");
+  card.classList.add("stat-box");
+  const last = data?.lastResult?.[0];
+  const obj = data?.firstExercise?.[0];
+
+  card.innerHTML = `
+    <h3>Latest Result</h3>
+    <p>${last ? `${last.object.name}: ${last.grade}m` : "—"}</p>
+  `;
+  return card;
+}
 export function topBar() {
   const headerElem = document.createElement("header");
   headerElem.classList.add("top-bar");
@@ -374,6 +387,57 @@ export function skillsRadarDiagram(skillsInput) {
   return box;
 }
 
+export function passFailDonut(results = []) {
+  const box = document.createElement("div");
+  box.classList.add("xp-chart-box");
+
+  // ensure we always have an array
+  const safeResults = Array.isArray(results) ? results : [];
+  const pass = safeResults.filter(r => r.grade >= 1).length;
+  const fail = safeResults.filter(r => r.grade < 1).length;
+  const total = pass + fail;
+
+  if (!total) {
+    box.innerHTML = '<h3>Pass/Fail Ratio</h3><p>No finished projects yet</p>';
+    return box;
+  }
+
+  const svgNS = "http://www.w3.org/2000/svg";
+  const size = 200;
+  const radius = Math.min(size, size) / 2 - 10;
+  const center = size / 2;
+
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${size} ${size}`);
+  svg.style.width = "200px";
+  svg.style.height = "200px";
+
+  const arc = (startAngle, endAngle, color) => {
+    const x1 = center + radius * Math.cos(startAngle);
+    const y1 = center + radius * Math.sin(startAngle);
+    const x2 = center + radius * Math.cos(endAngle);
+    const y2 = center + radius * Math.sin(endAngle);
+    const largeArc = endAngle - startAngle > Math.PI ? 1 : 0;
+    return `M ${center} ${center} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} Z`;
+  };
+
+  const passAngle = (pass / total) * 2 * Math.PI;
+  const passPath = document.createElementNS(svgNS, "path");
+  passPath.setAttribute("d", arc(0, passAngle));
+  passPath.setAttribute("fill", "#4ade80");
+  svg.appendChild(passPath);
+
+  const failPath = document.createElementNS(svgNS, "path");
+  failPath.setAttribute("d", arc(passAngle, 2 * Math.PI));
+  failPath.setAttribute("fill", "#f87171");
+  svg.appendChild(failPath);
+
+  const label = document.createElement("div");
+  label.innerHTML = `<h3>Pass/Fail Ratio</h3><p>${pass} pass / ${fail} fail</p>`;
+
+  box.append(label, svg);
+  return box;
+}
 export async function renderUserProfile() {
   const bodyElem = document.body;
   bodyElem.innerHTML = `<noscript>Please enable JavaScript</noscript>`;
@@ -396,6 +460,8 @@ export async function renderUserProfile() {
     auditsCount: auditsTotal
   });
   bodyElem.appendChild(statsGrid);
+  const extraCard = extraInfoCard(profileResult.data);
+  statsGrid.appendChild(extraCard);
 
   const chartsContainer = document.createElement("div");
   chartsContainer.classList.add("stats-container");
@@ -406,6 +472,12 @@ export async function renderUserProfile() {
   chartsContainer.append(xpChart, skillsDiagram);
   bodyElem.append(chartsContainer);
 
+  const passFailData = profileResult.data.passFail;
+  const donut = passFailDonut(passFailData);
+  chartsContainer.append(donut);
+
   const footer = bottomBar();
   bodyElem.append(footer);
 }
+
+

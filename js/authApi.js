@@ -130,8 +130,35 @@ export async function queryProfileData() {
       }
     }
   `;
+    const nestedQuery = `
+    lastResult: result(limit: 1, order_by: { createdAt: desc }) {
+      grade
+      object { name }
+      user { login }
+    }
+  `;
 
-    const fullQuery = `
+    const argumentQuery = `
+    firstExercise: object(where: { id: { _eq: 1 } }) {
+      name
+      type
+    }
+  `;
+
+    const passFailQuery = `
+  passFail: result(
+    where: { 
+      isLast: { _eq: true },
+      object: { type: { _eq: "project" } }
+    }
+  ) {
+    grade
+    object { name }
+  }
+`;
+
+
+const fullQuery = `
   {
     ${userDetailsQuery}
     ${xpDetailsQuery}
@@ -139,6 +166,9 @@ export async function queryProfileData() {
     ${maxLevelQuery}
     ${skillsQuery}
     ${auditsQuery}
+    ${nestedQuery}
+    ${argumentQuery}
+    ${passFailQuery}
   }
   `;
 
