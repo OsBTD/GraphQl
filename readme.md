@@ -1,14 +1,14 @@
-# Z01 Profile Dashboard
+# GraphQl
 
 A personalized dashboard for Z01 school data using GraphQL. Fetches user info, stats, and generates SVG graphs for XP growth and skills.
 
-[Live Demo](https://your-github-username.github.io/repo-name/)
+[Live Demo] (https://osbtd.github.io/graphQl/)
 
 ## Features
 - Secure login with JWT.
-- Displays user details, audits, levels, XP.
-- Two SVG graphs: XP growth (line chart), Skills (radar diagram).
-- Responsive light-theme design.
+- Displays user details, audits, levels, XP, Latest project.
+- Three SVG graphs: XP growth (line chart), Skills (radar diagram), Pass/Fail donut.
+- Responsive light/dark theme design.
 
 ## Setup
 1. Clone repo.
