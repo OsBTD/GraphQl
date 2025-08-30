@@ -13,26 +13,51 @@ export function extraInfoCard(data) {
   `;
   return card;
 }
+
 export function topBar() {
-  const headerElem = document.createElement("header");
-  headerElem.classList.add("top-bar");
+  const header = document.createElement('header');
+  header.className = 'top-bar';
 
-  const brandElem = document.createElement("div");
-  brandElem.classList.add("brand");
-  brandElem.innerHTML = `<i class="fas fa-user-circle"></i> <span>Z01 Dashboard</span>`; // Added icon back for completeness
+  const brand = document.createElement('div');
+  brand.className = 'brand';
+  brand.innerHTML = '<i class="fas fa-user-circle"></i> <span>Z01 Dashboard</span>';
 
-  const navigation = document.createElement("nav");
-  const navItems = document.createElement("ul");
-  navItems.classList.add("nav-list");
+  const nav = document.createElement('nav');
+  const list = document.createElement('ul');
+  list.className = 'nav-list';
 
-  const logoutItem = document.createElement("li");
-  logoutItem.innerHTML = `<a href="#" id="signout-link"><i class="fas fa-sign-out-alt"></i> Sign Out</a>`; // Added icon
+  const themeBtn = document.createElement('button');
+  themeBtn.id = 'theme-toggle';
+  themeBtn.style.cssText =
+    'background:none;border:none;color:var(--text-color);cursor:pointer;font-size:1.2rem;';
+  themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+  themeBtn.title = 'Toggle dark / light';
 
-  navItems.appendChild(logoutItem);
-  navigation.appendChild(navItems);
+  const logoutLi = document.createElement('li');
+  logoutLi.innerHTML =
+    '<a href="#" id="signout-link"><i class="fas fa-sign-out-alt"></i> Sign Out</a>';
 
-  headerElem.append(brandElem, navigation);
-  return headerElem;
+  list.appendChild(themeBtn);
+  list.appendChild(logoutLi);
+  nav.appendChild(list);
+
+  header.appendChild(brand);
+  header.appendChild(nav);
+
+  // theme toggle logic
+  themeBtn.addEventListener('click', () => {
+    const html = document.documentElement;
+    const icon = themeBtn.querySelector('i');
+    if (html.hasAttribute('data-theme')) {
+      html.removeAttribute('data-theme');
+      icon.className = 'fas fa-moon';
+    } else {
+      html.setAttribute('data-theme', 'light');
+      icon.className = 'fas fa-sun';
+    }
+  });
+
+  return header;
 }
 
 export function bottomBar() {
