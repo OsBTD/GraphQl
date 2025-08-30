@@ -1,0 +1,297 @@
+/* ----------  CSS VARIABLES (edit these to recolor) ---------- */
+:root {
+    /* main palette */
+    --bg-color: #111827;
+    /* page bg */
+    --card-bg: #1f2937;
+    /* cards, form */
+    --accent-color: #06b6d4;
+    /* neon cyan */
+    --text-color: #e5e7eb;
+    /* normal text */
+    --muted-color: #9ca3af;
+    /* secondary text */
+
+    /* functional colors */
+    --border-color: #374151;
+    --shadow-color: rgba(0, 0, 0, 0.35);
+    --font-family: 'Inter', 'Roboto', sans-serif;
+
+    /* spacing */
+    --border-radius: 12px;
+    --transition: 0.25s ease;
+}
+
+/* ----------  GLOBAL RESET  ---------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    line-height: 1.6;
+    padding: 1rem;
+}
+
+/* ----------  AUTH PAGE ---------- */
+.auth-wrapper {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.auth-header {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: 1.25rem;
+}
+
+.auth-form {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 20px var(--shadow-color);
+    padding: 2rem;
+    width: 100%;
+    max-width: 360px;
+    display: grid;
+    gap: 1.25rem;
+}
+
+.input-group {
+    position: relative;
+}
+
+.input-group .icon {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    color: var(--accent-color);
+    font-size: 1.1rem;
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.85rem 0.85rem 0.85rem 3rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: transparent;
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: border-color var(--transition);
+}
+
+.input-field:focus {
+    border-color: var(--accent-color);
+    outline: none;
+}
+
+.submit-button {
+    padding: 0.85rem;
+    border: none;
+    border-radius: var(--border-radius);
+    background: var(--accent-color);
+    color: #111827;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px var(--accent-color);
+}
+
+/* ----------  HEADER / NAV ---------- */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color);
+}
+
+.nav-list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    list-style: none;
+}
+
+.nav-list a {
+    color: var(--muted-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.95rem;
+    transition: color var(--transition);
+}
+
+.nav-list a:hover {
+    color: var(--accent-color);
+}
+
+/* ----------  STATS GRID ---------- */
+.profile-stats-grid {
+    display: grid;
+    gap: 1rem;
+    padding: 1.5rem;
+    max-width: 1000px;
+    margin: 1.5rem auto;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.user-profile {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--accent-color), #0891b2);
+    color: #111827;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 6px 16px var(--shadow-color);
+}
+
+.user-profile h2 {
+    margin-bottom: 0.75rem;
+    font-size: 1.6rem;
+}
+
+.user-profile p {
+    margin: 0.2rem 0;
+}
+
+.stat-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.stat-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 14px var(--shadow-color);
+}
+
+.stat-box h3 {
+    font-size: 1rem;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-box p {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+/* ----------  CHART CONTAINERS ---------- */
+.stats-container {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.xp-chart-box,
+.skills-diagram-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+/* ----------  SVG ACCENTS ---------- */
+svg path,
+svg polygon,
+svg circle {
+    transition: stroke var(--transition), fill var(--transition);
+}
+
+/* ----------  FOOTER ---------- */
+.bottom-bar {
+    background: var(--card-bg);
+    color: var(--muted-color);
+    text-align: center;
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    font-size: 0.85rem;
+}
+
+/* ----------  ALERT MESSAGE ---------- */
+#alert-message {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ef4444;
+    color: #fff;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--border-radius);
+    z-index: 100;
+    animation: slideIn 0.3s, slideOut 0.3s 2.5s;
+}
+
+@keyframes slideIn {
+    from {
+        top: -50px;
+        opacity: 0;
+    }
+
+    to {
+        top: 1rem;
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        top: 1rem;
+        opacity: 1;
+    }
+
+    to {
+        top: -50px;
+        opacity: 0;
+    }
+}
+
+/* ----------  RESPONSIVE ---------- */
+@media (max-width: 768px) {
+    .profile-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .user-profile {
+        grid-column: span 1;
+    }
+}
+
+[data-theme="light"] {
+    --bg-color: #ffffff;
+    --card-bg: #f5f5f5;
+    --text-color: #111827;
+    --muted-color: #4b5563;
+}
